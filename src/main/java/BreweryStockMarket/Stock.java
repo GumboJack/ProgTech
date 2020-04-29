@@ -1,13 +1,14 @@
 package BreweryStockMarket;
 
 import Models.Ingredient;
+import com.sun.media.sound.JavaSoundAudioClip;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
 public class Stock extends Observable {
-    BreweryIngredientsFactory factory = BreweryIngredientsFactory.getInstance();
-    ArrayList<Ingredient> stock = new ArrayList<Ingredient>();
+    private BreweryIngredientsFactory factory = BreweryIngredientsFactory.getInstance();
+    private ArrayList<Ingredient> stock = new ArrayList<Ingredient>();
 
     public void addItem(char itemType){
         stock.add(factory.makeIngredient(itemType));
@@ -24,5 +25,9 @@ public class Stock extends Observable {
         }
         setChanged();
         notifyObservers();
+    }
+
+    public void addNewItem(Ingredient ingredient){
+        
     }
 }
