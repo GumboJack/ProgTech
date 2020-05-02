@@ -1,7 +1,7 @@
 package BreweryStockMarket;
 
+import Models.Hop;
 import Models.Ingredient;
-import com.sun.media.sound.JavaSoundAudioClip;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -9,9 +9,24 @@ import java.util.Observable;
 public class Stock extends Observable {
     private BreweryIngredientsFactory factory = BreweryIngredientsFactory.getInstance();
     private ArrayList<Ingredient> stock = new ArrayList<Ingredient>();
+    private static Stock instance = null;
+
+    private Stock(){}
+
+    public static Stock getInstance(){
+        if(instance == null){
+            instance = new Stock();
+        }
+        return instance;
+    }
 
     public void addItem(char itemType){
-        stock.add(factory.makeIngredient(itemType));
+        Ingredient ingredient = factory.makeIngredient(itemType);
+        switch (ingredient.getClass().toString()){
+            case "Hop":
+                break;
+        }
+        stock.add();
     }
 
     public ArrayList<Ingredient> getStock(){
@@ -25,9 +40,5 @@ public class Stock extends Observable {
         }
         setChanged();
         notifyObservers();
-    }
-
-    public void addNewItem(Ingredient ingredient){
-        
     }
 }

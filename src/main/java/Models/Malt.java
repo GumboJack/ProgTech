@@ -1,7 +1,6 @@
 package Models;
 
 public class Malt extends Ingredient {
-    private UnitType unit = UnitType.KILOGRAM;
 
     public void randomizePrice() {
         if (randomGenerator.nextBoolean()){
@@ -31,13 +30,7 @@ public class Malt extends Ingredient {
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
+        this.setUnit(UnitType.KILOGRAM);
     }
 
-    public UnitType getUnit() {
-        return unit;
-    }
-
-    public void setUnit(UnitType unit) {
-        this.unit = unit;
-    }
 }

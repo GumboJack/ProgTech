@@ -2,7 +2,6 @@ package Models;
 
 public class Hop extends Ingredient {
     private double alphaAcid;
-    private UnitType unit = UnitType.GRAM;
 
     public void randomizePrice() {
         if (randomGenerator.nextBoolean()){
@@ -33,6 +32,7 @@ public class Hop extends Ingredient {
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
+        this.setUnit(UnitType.GRAM);
     }
 
     public double getAlphaAcid() {
@@ -43,11 +43,4 @@ public class Hop extends Ingredient {
         this.alphaAcid = alphaAcid;
     }
 
-    public UnitType getUnit() {
-        return unit;
-    }
-
-    public void setUnit(UnitType unit) {
-        this.unit = unit;
-    }
 }

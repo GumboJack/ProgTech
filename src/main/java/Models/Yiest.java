@@ -1,7 +1,6 @@
 package Models;
 
 public class Yiest extends Ingredient {
-    private UnitType unit = UnitType.GRAM;
 
     public void randomizePrice() {
         if (randomGenerator.nextBoolean()){
@@ -31,13 +30,7 @@ public class Yiest extends Ingredient {
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
+        this.setUnit(UnitType.GRAM);
     }
 
-    public UnitType getUnit() {
-        return unit;
-    }
-
-    public void setUnit(UnitType unit) {
-        this.unit = unit;
-    }
 }

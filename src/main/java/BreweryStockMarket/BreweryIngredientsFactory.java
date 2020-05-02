@@ -5,7 +5,6 @@ import Models.Ingredient;
 import Models.Malt;
 import Models.Yiest;
 
-//Lazy Singleton Factory
 public class BreweryIngredientsFactory {
     private static BreweryIngredientsFactory instance = null;
 

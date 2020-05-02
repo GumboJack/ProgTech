@@ -10,6 +10,7 @@ public abstract class Ingredient {
     private double maxIncrease;
     private double minDecrease;
     private double maxDecrease;
+    private UnitType unit;
 
     protected Random randomGenerator;
 
@@ -69,5 +70,21 @@ public abstract class Ingredient {
 
     public void setMaxDecrease(double maxDecrease) {
         this.maxDecrease = maxDecrease;
+    }
+
+    public UnitType getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitType unit) {
+        this.unit = unit;
+    }
+
+    public Random getRandomGenerator() {
+        return randomGenerator;
+    }
+
+    public void setRandomGenerator(Random randomGenerator) {
+        this.randomGenerator = randomGenerator;
     }
 }

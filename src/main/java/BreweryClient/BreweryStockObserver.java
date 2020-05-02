@@ -3,6 +3,7 @@ package BreweryClient;
 import BreweryStockMarket.Stock;
 import Models.Ingredient;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,30 +12,16 @@ public class BreweryStockObserver implements Observer {
     private ArrayList<Ingredient> observedStock = new ArrayList<Ingredient>();
     private ArrayList<Beer> craftBeers = new ArrayList<Beer>();
 
+    private ClientGUI frame = new ClientGUI("BreweryClient");
+
     public void update(Observable o, Object arg) {
         observedStock = ((Stock)o).getStock();
-        displayAllPrices();
+        updatestoreStore(observedStock);
     }
 
-    public void displayAllPrices(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("STOCK: \n");
-        for (Ingredient ingredient:
-             observedStock) {
-            sb.append(ingredient.getItemName());
-            sb.append(": ");
-            sb.append(ingredient.getStockPrice());
-            sb.append("\n");
-        }
-        System.out.println(sb.toString());
+    private void updatestoreStore(ArrayList<Ingredient> stock){
+        frame.fillStore(stock);
     }
 
-    public void displayBrewingPrices(double quantity){
-        StringBuilder sb = new StringBuilder();
-        sb.append("BEER PRICES: \n");
-        for (Beer beer:
-             craftBeers) {
 
-        }
-    }
 }
