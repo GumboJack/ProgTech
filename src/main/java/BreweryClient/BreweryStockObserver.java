@@ -1,9 +1,8 @@
 package BreweryClient;
 
-import BreweryStockMarket.Stock;
+import BreweryStockMarket.BreweryStock;
 import Models.Ingredient;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +14,7 @@ public class BreweryStockObserver implements Observer {
     private ClientGUI frame = new ClientGUI("BreweryClient");
 
     public void update(Observable o, Object arg) {
-        observedStock = ((Stock)o).getStock();
+        observedStock = ((BreweryStock)o).getStock();
         updatestoreStore(observedStock);
     }
 

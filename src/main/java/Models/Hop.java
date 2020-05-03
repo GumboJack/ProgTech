@@ -20,10 +20,11 @@ public class Hop extends Ingredient {
     }
 
     public Hop(){
-
+        this.setUnit(UnitType.GRAM);
     }
 
-    public Hop(double alphaAcid, String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease) {
+    public Hop(double alphaAcid, String itemName, double stockPrice, int quantity, double minIncrease,
+               double maxIncrease, double mindDecrease, double maxDecrease) {
         this.alphaAcid = alphaAcid;
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);

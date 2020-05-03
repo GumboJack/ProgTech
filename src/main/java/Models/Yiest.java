@@ -19,7 +19,7 @@ public class Yiest extends Ingredient {
     }
 
     public Yiest(){
-
+        this.setUnit(UnitType.GRAM);
     }
 
     public Yiest(String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){

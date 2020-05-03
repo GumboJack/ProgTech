@@ -1,18 +1,15 @@
 package BreweryStockMarket;
 
-import Models.Hop;
-import Models.Ingredient;
-import Models.Malt;
-import Models.Yiest;
+import Models.*;
 
-public class BreweryIngredientsFactory {
-    private static BreweryIngredientsFactory instance = null;
+public class IngredientsFactory {
+    private static IngredientsFactory instance = null;
 
-    private BreweryIngredientsFactory(){}
+    private IngredientsFactory(){}
 
-    public static BreweryIngredientsFactory getInstance(){
+    public static IngredientsFactory getInstance(){
         if (instance == null){
-            instance = new BreweryIngredientsFactory();
+            instance = new IngredientsFactory();
         }
         return instance;
     }
@@ -25,6 +22,8 @@ public class BreweryIngredientsFactory {
                 return new Malt();
             case 'y':
                 return new Yiest();
+            case 'o':
+                return new OtherIngredient();
             default:
                 return null;
         }

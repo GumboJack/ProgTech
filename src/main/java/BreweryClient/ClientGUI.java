@@ -25,6 +25,7 @@ public class ClientGUI extends JFrame{
     private JButton deleteIngredientButton;
     private JList storeList;
     private JTextField beerNameInput;
+    private JRadioButton otherFilter;
 
 
     public ClientGUI(String title){

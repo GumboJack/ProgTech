@@ -19,7 +19,7 @@ public class Malt extends Ingredient {
     }
 
     public Malt(){
-
+        this.setUnit(UnitType.KILOGRAM);
     }
 
     public Malt(String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
