@@ -22,5 +22,4 @@ public class BreweryStockObserver implements Observer {
         frame.fillStore(stock);
     }
 
-
 }

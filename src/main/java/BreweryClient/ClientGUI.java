@@ -36,11 +36,6 @@ public class ClientGUI extends JFrame{
         this.pack();
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new ClientGUI("BreweryClient");
-        frame.setVisible(true);
-    }
-
     public void fillStore(ArrayList<Ingredient> store){
         DefaultListModel list = new DefaultListModel();
         for (Ingredient ingredient:

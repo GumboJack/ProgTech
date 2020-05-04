@@ -20,6 +20,24 @@ public class UnitHelper {
                 return "dl";
             case LITER:
                 return "l";
+            case DRAM:
+                return "dr";
+            case GILL:
+                return "gill";
+            case PINT:
+                return "pint";
+            case OUNCE:
+                return "oz";
+            case POUND:
+                return "pound";
+            case QUART:
+                return "quart";
+            case STONE:
+                return "stone";
+            case GALLON:
+                return "gallon";
+            case BARREL:
+                return "barrel";
             default:
                 return "unit";
         }
