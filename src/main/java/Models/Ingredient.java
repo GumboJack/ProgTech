@@ -1,5 +1,7 @@
 package Models;
 
+import BreweryClient.Vessel;
+
 import java.util.Random;
 
 public abstract class Ingredient {
@@ -80,11 +82,4 @@ public abstract class Ingredient {
         this.unit = unit;
     }
 
-    public Random getRandomGenerator() {
-        return randomGenerator;
-    }
-
-    public void setRandomGenerator(Random randomGenerator) {
-        this.randomGenerator = randomGenerator;
-    }
 }

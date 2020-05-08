@@ -61,11 +61,6 @@ public class BreweryStock extends Observable {
         stock.add(ingredient);
         setChanged();
         notifyObservers();
-        System.out.println("ingredients: ");
-        for (Ingredient i:
-                stock) {
-            System.out.println(i);
-        }
     }
 
     public void addIngredient(Ingredient ingredient){

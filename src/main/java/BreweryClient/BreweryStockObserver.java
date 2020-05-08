@@ -9,7 +9,7 @@ import java.util.Observer;
 
 public class BreweryStockObserver implements Observer {
     private ArrayList<Ingredient> observedStock = new ArrayList<Ingredient>();
-    private ArrayList<Beer> craftBeers = new ArrayList<Beer>();
+    private ArrayList<Recipe> craftBeers = new ArrayList<Recipe>();
 
     private ClientGUI frame = new ClientGUI("BreweryClient");
 

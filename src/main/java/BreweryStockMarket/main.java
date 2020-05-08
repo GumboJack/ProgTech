@@ -1,6 +1,5 @@
 package BreweryStockMarket;
 
-import BreweryClient.ClientGUI;
 
 import javax.swing.*;
 
