@@ -4,23 +4,21 @@ import Models.Malt;
 
 import java.util.ArrayList;
 
-public class Mash extends Vessel {
-    protected ArrayList<Malt> malts;
-
-    public Mash(Beer newBeer, Recipe recipe, ArrayList<Malt> malts) {
-        super(newBeer, recipe);
-        if(recipe.getMaltQuantities().length == malts.size()){
-            this.malts = malts;
-        }
+public class Mash extends BeerDecorator {
+    public Mash(BeerCost newBeerCost, Recipe recipe) {
+        super(newBeerCost, recipe);
+        super.recipe = recipe;
     }
 
     @Override
     public double getCost(int liter) {
         double counter = 0;
+        ArrayList<Malt> malts = recipe.getMalts();
+        int[] quantities = recipe.getMaltQuantities();
         for(int i = 0; i < malts.size(); i++){
-            counter += recipe.getMaltQuantities()[i] / malts.get(i).getQunantity() * malts.get(i).getStockPrice();
+            counter += quantities[i] / malts.get(i).getQunantity() * malts.get(i).getStockPrice();
         }
         counter += recipe.getMashingTimeInMinutes() * 60;
-        return super.getCost(liter) + counter * (recipe.getLiter() / liter);
+        return tempBeerCost.getCost(liter) + counter * (recipe.getLiter() / liter);
     }
 }

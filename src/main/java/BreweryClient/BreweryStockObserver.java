@@ -10,16 +10,19 @@ import java.util.Observer;
 public class BreweryStockObserver implements Observer {
     private ArrayList<Ingredient> observedStock = new ArrayList<Ingredient>();
     private ArrayList<Recipe> craftBeers = new ArrayList<Recipe>();
+    private ClientGUI gui;
 
-    private ClientGUI frame = new ClientGUI("BreweryClient");
+    public BreweryStockObserver(ClientGUI gui) {
+        this.gui = gui;
+    }
 
+    @Override
     public void update(Observable o, Object arg) {
         observedStock = ((BreweryStock)o).getStock();
-        updatestoreStore(observedStock);
+        gui.fillStore(observedStock);
     }
 
-    private void updatestoreStore(ArrayList<Ingredient> stock){
-        frame.fillStore(stock);
+    public ArrayList<Ingredient> getObservedStock() {
+        return observedStock;
     }
-
 }

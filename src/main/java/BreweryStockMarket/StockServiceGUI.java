@@ -1,13 +1,18 @@
 package BreweryStockMarket;
 
+import Models.*;
 import Models.UnitHelper;
 import Models.UnitType;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Observer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
-public class StockService extends JFrame{
+public class StockServiceGUI extends JFrame{
     private JPanel mainPanel;
     private JTextField inputName;
     private JButton btnAdd;
@@ -29,10 +34,14 @@ public class StockService extends JFrame{
     private JLabel invalidMaxDecrease;
     private JLabel invalidMinDecrease;
     private JLabel invalidAlphaAcid;
-    BreweryStock stock = BreweryStock.getInstance();
-    private boolean validInputFormat = false;
+    private BreweryStock stock = BreweryStock.getInstance();
+    private final ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
 
-    public StockService(){
+    public void addObserver(Observer observer){
+        stock.addObserver(observer);
+    }
+
+    public StockServiceGUI(){
         super("Brewery stock service");
 
         typeSelector.addItem(new TypeComboItem("Hop", 'h'));
@@ -107,46 +116,62 @@ public class StockService extends JFrame{
                     if (ingredienttype == 'h'){
                         alphaAcid = Integer.parseInt(inputAlphaAcid.getText()) / 100;
                     }
-                    quantity = Integer.parseInt(inputQuantity.getText());
-                    stockPrice = Double.parseDouble(inputMinIncrease.getText());
-                    minInc = Double.parseDouble(inputMinIncrease.getText());
-                    maxInc = Double.parseDouble(inputMaxIncrease.getText());
-                    minDec = Double.parseDouble(inputMinDecrease.getText());
-                    maxDec = Double.parseDouble(inputMaxDecrease.getText());
-                    validInputFormat = true;
-                }catch (Throwable t){
-                    System.out.println(t.getMessage());
-                    System.out.println(t.getStackTrace().toString());
-                    validInputFormat = false;
+                    if (inputName.getText() == "" ||
+                            inputStockPrice.getText() == "" ||
+                            inputQuantity.getText() == "" ||
+                            inputMinIncrease.getText() == "" ||
+                            inputMaxIncrease.getText() == "" ||
+                            inputMinDecrease.getText() == "" ||
+                            inputMaxDecrease.getText() == "" ||
+                            (((TypeComboItem)typeSelector.getSelectedItem()).getValue() == 'h' && inputAlphaAcid.getText() == "")
+                    ){
+                        JOptionPane.showMessageDialog(mainPanel, "All input fields are required!");
+                    } else {
+                        quantity = Integer.parseInt(inputQuantity.getText());
+                        stockPrice = Double.parseDouble(inputStockPrice.getText());
+                        minInc = Double.parseDouble(inputMinIncrease.getText());
+                        maxInc = Double.parseDouble(inputMaxIncrease.getText());
+                        minDec = Double.parseDouble(inputMinDecrease.getText());
+                        maxDec = Double.parseDouble(inputMaxDecrease.getText());
+                    }
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid input formats!");
                 }
 
-                if (inputName.getText() == "" ||
-                        inputStockPrice.getText() == "" ||
-                        inputQuantity.getText() == "" ||
-                        inputMinIncrease.getText() == "" ||
-                        inputMaxIncrease.getText() == "" ||
-                        inputMinDecrease.getText() == "" ||
-                        inputMaxDecrease.getText() == "" ||
-                        (((TypeComboItem)typeSelector.getSelectedItem()).getValue() == 'h' && inputAlphaAcid.getText() == "")
-                    ){
-                    JOptionPane.showMessageDialog(mainPanel, "All input fields are required!");
-                } else if (!validInputFormat){
-                    JOptionPane.showMessageDialog(mainPanel, "Invalid input formats!");
-                } else {
-                    try{
-                        stock.addIngredient(ingredienttype, alphaAcid, itemName, stockPrice, quantity, minInc, maxInc, minDec, maxDec, unit);
-                    } catch (Throwable t){
-                        JOptionPane.showMessageDialog(mainPanel, "Error");
-                        System.out.println(t.getMessage());
-                        System.out.println(t.getStackTrace().toString());
-                    }
+                try{
+                    stock.addIngredient(ingredienttype, alphaAcid, itemName, stockPrice, quantity, minInc, maxInc, minDec, maxDec, unit);
+                } catch (Exception ex){
+                    JOptionPane.showMessageDialog(mainPanel, "Error");
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });
 
+        //Tesztadatok betöltése startupnál
+        Hop hop = new Hop(0.10, "TestHop", 100, 100, 4.1, 2.1, 3.7, 2.4);
+        Malt malt = new Malt("TestMalt", 100, 100, 4.1, 2.1, 3.7, 2.4);
+        Yiest yiest = new Yiest("TestYiest", 100, 100, 4.1, 2.1, 3.7,2.4);
+        OtherIngredient other = new OtherIngredient("TestIngredient",300, 1, UnitType.KILOGRAM);
+        stock.addIngredient(hop);
+        stock.addIngredient(malt);
+        stock.addIngredient(yiest);
+        stock.addIngredient(other);
+        //////////////////////////////////////////////////////////
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                stock.updatePrices();
+            }
+        };
+        exec.scheduleAtFixedRate(runnable , 0, 1, TimeUnit.MINUTES);
     }
 
     private void setIntegerField(final JTextField field, final JLabel errorMessage){

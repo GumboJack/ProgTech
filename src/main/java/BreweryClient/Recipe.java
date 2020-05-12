@@ -1,6 +1,8 @@
 package BreweryClient;
 
-import Models.UnitType;
+import Models.*;
+
+import java.util.ArrayList;
 
 public class Recipe {
     String beerName;
@@ -10,26 +12,36 @@ public class Recipe {
     private UnitType maltUnit;
     private int[] hopQuantities;
     private UnitType hopUnit;
-    private int[] yiestQuantity;
+    private int[] yiestQuantities;
     private UnitType yiestUnit;
     private int[] otherQuantities;
     private UnitType otherUnit;
+    private ArrayList<Hop> hops;
+    private ArrayList<Malt> malts;
+    private ArrayList<Yiest> yiests;
+    private ArrayList<OtherIngredient> otherIngredients;
     private int mashingTimeInMinutes;
     private int hopBoilingTimeInMinutes;
     private int fermentationTimeInDays;
     private boolean pasteurization;
     private boolean filtrarion;
 
-    public Recipe(String beerName, int liter, int[] maltQuantities, UnitType maltUnit, int[] hopQuantities, UnitType hopUnit, int[] yiestQuantity,
-                  UnitType yiestUnit, int[] otherQuantities, UnitType otherUnit, int mashingTimeInMinutes, int hopBoilingTimeInMinutes,
-                  int fermentationTimeInDays, boolean pasteurization, boolean filtrarion) {
+    public Recipe(String beerName, int liter, int[] maltQuantities, UnitType maltUnit, int[] hopQuantities, UnitType hopUnit,
+                  int[] yiestQuantities, UnitType yiestUnit, int[] otherQuantities, UnitType otherUnit, int mashingTimeInMinutes,
+                  int hopBoilingTimeInMinutes, int fermentationTimeInDays, boolean pasteurization, boolean filtrarion,
+                  ArrayList<Hop> hops, ArrayList<Malt> malts, ArrayList<Yiest> yiests, ArrayList<OtherIngredient> otherIngredients)
+            throws InvalidRecipeException {
+        if(maltQuantities.length != malts.size() || hopQuantities.length != hops.size() ||
+                yiestQuantities.length != yiests.size() || otherQuantities.length != otherIngredients.size()){
+            throw new InvalidRecipeException();
+        }
         this.liter = liter;
         this.beerName = beerName;
         this.maltQuantities = maltQuantities;
         this.maltUnit = maltUnit;
         this.hopQuantities = hopQuantities;
         this.hopUnit = hopUnit;
-        this.yiestQuantity = yiestQuantity;
+        this.yiestQuantities = yiestQuantities;
         this.yiestUnit = yiestUnit;
         this.otherQuantities = otherQuantities;
         this.otherUnit = otherUnit;
@@ -38,6 +50,10 @@ public class Recipe {
         this.fermentationTimeInDays = fermentationTimeInDays;
         this.pasteurization = pasteurization;
         this.filtrarion = filtrarion;
+        this.hops = hops;
+        this.malts = malts;
+        this.yiests = yiests;
+        this.otherIngredients = otherIngredients;
     }
 
     public String getBeerName() {
@@ -88,12 +104,12 @@ public class Recipe {
         this.hopUnit = hopUnit;
     }
 
-    public int[] getYiestQuantity() {
-        return yiestQuantity;
+    public int[] getYiestQuantities() {
+        return yiestQuantities;
     }
 
-    public void setYiestQuantity(int[] yiestQuantity) {
-        this.yiestQuantity = yiestQuantity;
+    public void setYiestQuantities(int[] yiestQuantities) {
+        this.yiestQuantities = yiestQuantities;
     }
 
     public UnitType getYiestUnit() {
@@ -158,5 +174,37 @@ public class Recipe {
 
     public void setFiltrarion(boolean filtrarion) {
         this.filtrarion = filtrarion;
+    }
+
+    public ArrayList<Hop> getHops() {
+        return hops;
+    }
+
+    public void setHops(ArrayList<Hop> hops) {
+        this.hops = hops;
+    }
+
+    public ArrayList<Malt> getMalts() {
+        return malts;
+    }
+
+    public void setMalts(ArrayList<Malt> malts) {
+        this.malts = malts;
+    }
+
+    public ArrayList<Yiest> getYiests() {
+        return yiests;
+    }
+
+    public void setYiests(ArrayList<Yiest> yiests) {
+        this.yiests = yiests;
+    }
+
+    public ArrayList<OtherIngredient> getOtherIngredients() {
+        return otherIngredients;
+    }
+
+    public void setOtherIngredients(ArrayList<OtherIngredient> otherIngredients) {
+        this.otherIngredients = otherIngredients;
     }
 }

@@ -1,7 +1,5 @@
 package Models;
 
-import BreweryClient.Vessel;
-
 import java.util.Random;
 
 public abstract class Ingredient {

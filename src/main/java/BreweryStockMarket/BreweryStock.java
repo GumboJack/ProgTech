@@ -20,7 +20,7 @@ public class BreweryStock extends Observable {
     }
 
     public ArrayList<Ingredient> getStock(){
-        return (ArrayList<Ingredient>) stock.clone();
+        return (ArrayList<Ingredient>) stock;
     }
 
     public void updatePrices(){
@@ -59,7 +59,7 @@ public class BreweryStock extends Observable {
             ingredient.setUnit(unit);
         }
         stock.add(ingredient);
-        setChanged();
+        super.setChanged();
         notifyObservers();
     }
 
