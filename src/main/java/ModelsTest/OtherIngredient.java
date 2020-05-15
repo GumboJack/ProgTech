@@ -1,4 +1,4 @@
-package Models;
+package ModelsTest;
 
 public class OtherIngredient extends Ingredient {
     public void randomizePrice() {

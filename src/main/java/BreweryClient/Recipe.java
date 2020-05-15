@@ -1,6 +1,6 @@
 package BreweryClient;
 
-import Models.*;
+import ModelsTest.*;
 
 import java.util.ArrayList;
 

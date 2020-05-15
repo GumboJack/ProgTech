@@ -1,20 +1,19 @@
-package Models;
+package ModelsTest;
+
+import java.util.Random;
 
 public class Yiest extends Ingredient {
 
     public void randomizePrice() {
+        Random randomGenerator = new Random();
         if (randomGenerator.nextBoolean()){
             double increase;
-            do {
-                increase = randomGenerator.nextDouble()*10;
-            } while (increase > this.getMaxIncrease() || increase < this.getMinIncrease());
-            this.setStockPrice(this.getStockPrice()+increase);
+            increase = getMinIncrease() + (getMaxIncrease() - getMinIncrease()) * randomGenerator.nextDouble();
+            this.setStockPrice(Ingredient.round(this.getStockPrice()+increase, 2));
         } else {
             double decrease;
-            do {
-                decrease = randomGenerator.nextDouble()*10;
-            } while (decrease > this.getMaxIncrease() || decrease < this.getMinIncrease());
-            this.setStockPrice(this.getStockPrice()-decrease);
+            decrease = getMinDecrease() + (getMaxDecrease() - getMinDecrease()) * randomGenerator.nextDouble();
+            this.setStockPrice(Ingredient.round(this.getStockPrice()-decrease, 2));
         }
     }
 

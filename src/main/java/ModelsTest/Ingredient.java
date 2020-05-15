@@ -1,6 +1,7 @@
-package Models;
+package ModelsTest;
 
-import java.util.Random;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public abstract class Ingredient {
     private String itemName;
@@ -12,7 +13,13 @@ public abstract class Ingredient {
     private double maxDecrease;
     private UnitType unit;
 
-    protected Random randomGenerator;
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
     public abstract void randomizePrice();
 

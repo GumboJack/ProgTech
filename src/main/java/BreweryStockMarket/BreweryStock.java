@@ -1,16 +1,37 @@
 package BreweryStockMarket;
 
-import Models.*;
+import ModelsTest.*;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class BreweryStock extends Observable {
     private IngredientsFactory factory = IngredientsFactory.getInstance();
     private ArrayList<Ingredient> stock = new ArrayList<Ingredient>();
     private static BreweryStock instance = null;
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
-    private BreweryStock(){}
+    private BreweryStock(){
+        //Tesztadatok betöltése startupnál
+        Hop hop = new Hop(0.10, "TestHop", 100, 100, 4.1, 2.1, 3.7, 2.4);
+        Malt malt = new Malt("TestMalt", 100, 100, 4.1, 2.1, 3.7, 2.4);
+        Yiest yiest = new Yiest("TestYiest", 100, 100, 4.1, 2.1, 3.7,2.4);
+        OtherIngredient other = new OtherIngredient("TestIngredient",300, 1, UnitType.KILOGRAM);
+        addIngredient(hop);
+        addIngredient(malt);
+        addIngredient(yiest);
+        addIngredient(other);
+
+        executor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                updatePrices();
+            }
+        }, 0, 10, TimeUnit.SECONDS);
+    }
 
     public static BreweryStock getInstance(){
         if(instance == null){

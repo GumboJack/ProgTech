@@ -1,15 +1,11 @@
 package BreweryStockMarket;
 
-import Models.*;
-import Models.UnitHelper;
-import Models.UnitType;
+import ModelsTest.UnitHelper;
+import ModelsTest.UnitType;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Observer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class StockServiceGUI extends JFrame{
@@ -35,7 +31,6 @@ public class StockServiceGUI extends JFrame{
     private JLabel invalidMinDecrease;
     private JLabel invalidAlphaAcid;
     private BreweryStock stock = BreweryStock.getInstance();
-    private final ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
 
     public void addObserver(Observer observer){
         stock.addObserver(observer);
@@ -87,18 +82,19 @@ public class StockServiceGUI extends JFrame{
         setDoubleField(inputMinDecrease, invalidMinDecrease);
         setIntegerField(inputAlphaAcid, invalidAlphaAcid);
 
+
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("Inputs: \n");
-                sb.append(inputName.getText() + "\n");
-                sb.append(inputStockPrice.getText() + "\n");
-                sb.append(inputQuantity.getText() + "\n");
-                sb.append(inputMaxIncrease.getText() + "\n");
-                sb.append(inputMinIncrease.getText() + "\n");
-                sb.append(inputMinDecrease.getText() + "\n");
-                sb.append(inputMaxDecrease.getText() + "\n");
-                sb.append(inputAlphaAcid.getText() + "\n");
+                sb.append(inputName.getText() + inputName.getText().isEmpty() + "\n");
+                sb.append(inputStockPrice.getText()+ inputStockPrice.getText().isEmpty() + "\n");
+                sb.append(inputQuantity.getText()+ inputQuantity.getText().isEmpty() + "\n");
+                sb.append(inputMaxIncrease.getText()+ inputMaxIncrease.getText().isEmpty() + "\n");
+                sb.append(inputMinIncrease.getText()+ inputMinIncrease.getText().isEmpty() + "\n");
+                sb.append(inputMinDecrease.getText()+ inputMinIncrease.getText().isEmpty() + "\n");
+                sb.append(inputMaxDecrease.getText()+ inputMaxDecrease.getText().isEmpty() + "\n");
+                sb.append(inputAlphaAcid.getText()+ inputAlphaAcid.getText().isEmpty() + "\n");
                 System.out.println(sb.toString());
 
                 char ingredienttype = ((TypeComboItem)typeSelector.getSelectedItem()).getValue();
@@ -112,66 +108,41 @@ public class StockServiceGUI extends JFrame{
                 double minDec = 0;
                 double maxDec = 0;
 
-                try{
-                    if (ingredienttype == 'h'){
-                        alphaAcid = Integer.parseInt(inputAlphaAcid.getText()) / 100;
-                    }
-                    if (inputName.getText() == "" ||
-                            inputStockPrice.getText() == "" ||
-                            inputQuantity.getText() == "" ||
-                            inputMinIncrease.getText() == "" ||
-                            inputMaxIncrease.getText() == "" ||
-                            inputMinDecrease.getText() == "" ||
-                            inputMaxDecrease.getText() == "" ||
-                            (((TypeComboItem)typeSelector.getSelectedItem()).getValue() == 'h' && inputAlphaAcid.getText() == "")
-                    ){
-                        JOptionPane.showMessageDialog(mainPanel, "All input fields are required!");
-                    } else {
+
+                if (inputName.getText().isEmpty() ||
+                        inputStockPrice.getText().isEmpty() ||
+                        inputQuantity.getText().isEmpty() ||
+                        inputMinIncrease.getText().isEmpty() ||
+                        inputMaxIncrease.getText().isEmpty() ||
+                        inputMinDecrease.getText().isEmpty() ||
+                        inputMaxDecrease.getText().isEmpty() ||
+                        (ingredienttype == 'h' && inputAlphaAcid.getText().isEmpty())
+                ){
+                    JOptionPane.showMessageDialog(mainPanel, "All input fields are required!");
+                } else {
+                    try{
                         quantity = Integer.parseInt(inputQuantity.getText());
                         stockPrice = Double.parseDouble(inputStockPrice.getText());
                         minInc = Double.parseDouble(inputMinIncrease.getText());
                         maxInc = Double.parseDouble(inputMaxIncrease.getText());
                         minDec = Double.parseDouble(inputMinDecrease.getText());
                         maxDec = Double.parseDouble(inputMaxDecrease.getText());
+                        if (ingredienttype == 'h'){
+                            alphaAcid = Integer.parseInt(inputAlphaAcid.getText()) / 100;
+                        }
+                        stock.addIngredient(ingredienttype, alphaAcid, itemName, stockPrice, quantity, minInc, maxInc, minDec, maxDec, unit);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainPanel, "Invalid input formats");
+                        System.out.println(ex.getMessage());
+                        ex.printStackTrace();
                     }
-                }catch (Exception ex){
-                    System.out.println(ex.getMessage());
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(mainPanel, "Invalid input formats!");
-                }
-
-                try{
-                    stock.addIngredient(ingredienttype, alphaAcid, itemName, stockPrice, quantity, minInc, maxInc, minDec, maxDec, unit);
-                } catch (Exception ex){
-                    JOptionPane.showMessageDialog(mainPanel, "Error");
-                    System.out.println(ex.getMessage());
-                    ex.printStackTrace();
                 }
             }
         });
 
-        //Tesztadatok betöltése startupnál
-        Hop hop = new Hop(0.10, "TestHop", 100, 100, 4.1, 2.1, 3.7, 2.4);
-        Malt malt = new Malt("TestMalt", 100, 100, 4.1, 2.1, 3.7, 2.4);
-        Yiest yiest = new Yiest("TestYiest", 100, 100, 4.1, 2.1, 3.7,2.4);
-        OtherIngredient other = new OtherIngredient("TestIngredient",300, 1, UnitType.KILOGRAM);
-        stock.addIngredient(hop);
-        stock.addIngredient(malt);
-        stock.addIngredient(yiest);
-        stock.addIngredient(other);
-        //////////////////////////////////////////////////////////
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                stock.updatePrices();
-            }
-        };
-        exec.scheduleAtFixedRate(runnable , 0, 1, TimeUnit.MINUTES);
     }
 
     private void setIntegerField(final JTextField field, final JLabel errorMessage){
