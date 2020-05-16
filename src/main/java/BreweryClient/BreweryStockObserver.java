@@ -19,7 +19,7 @@ public class BreweryStockObserver implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         observedStock = ((BreweryStock)o).getStock();
-        gui.fillStore(observedStock);
+        gui.fillStore();
     }
 
     public ArrayList<Ingredient> getObservedStock() {
