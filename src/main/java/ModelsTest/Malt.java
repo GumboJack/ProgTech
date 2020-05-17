@@ -1,9 +1,11 @@
 package ModelsTest;
 
+import java.text.ParseException;
 import java.util.Random;
 
 public class Malt extends Ingredient {
 
+    @Override
     public void randomizePrice() {
         Random randomGenerator = new Random();
         if (randomGenerator.nextBoolean()){
@@ -15,6 +17,13 @@ public class Malt extends Ingredient {
             decrease = getMinDecrease() + (getMaxDecrease() - getMinDecrease()) * randomGenerator.nextDouble();
             this.setStockPrice(Ingredient.round(this.getStockPrice()-decrease, 2));
         }
+    }
+
+    public Malt(Malt malt){
+        this.setItemName(malt.getItemName());
+        this.setStockPrice(malt.getStockPrice());
+        this.setQunantity(malt.getQunantity());
+        this.setUnit(malt.getUnit());
     }
 
     public Malt(){

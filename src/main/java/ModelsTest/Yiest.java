@@ -17,6 +17,13 @@ public class Yiest extends Ingredient {
         }
     }
 
+    public Yiest(Yiest yiest){
+        this.setItemName(yiest.getItemName());
+        this.setStockPrice(yiest.getStockPrice());
+        this.setQunantity(yiest.getQunantity());
+        this.setUnit(yiest.getUnit());
+    }
+
     public Yiest(){
         this.setUnit(UnitType.GRAM);
     }

@@ -18,6 +18,14 @@ public class Hop extends Ingredient {
         }
     }
 
+    public Hop(Hop hop){
+        this.setItemName(hop.getItemName());
+        this.setStockPrice(hop.getStockPrice());
+        this.setQunantity(hop.getQunantity());
+        this.setUnit(hop.getUnit());
+        this.setAlphaAcid(hop.getAlphaAcid());
+    }
+
     public Hop(){
         this.setUnit(UnitType.GRAM);
     }

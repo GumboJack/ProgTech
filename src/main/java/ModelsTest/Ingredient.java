@@ -86,5 +86,4 @@ public abstract class Ingredient {
     public void setUnit(UnitType unit) {
         this.unit = unit;
     }
-
 }

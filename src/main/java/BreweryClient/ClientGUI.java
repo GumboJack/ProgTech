@@ -77,7 +77,15 @@ public class ClientGUI extends JFrame{
                     }
                 }
                 if(!exist){
-                    selectedIngredients.add(ingredient);
+                    if(ingredient instanceof Hop){
+                        selectedIngredients.add(new Hop((Hop)ingredient));
+                    } else if(ingredient instanceof Malt){
+                        selectedIngredients.add(new Malt((Malt)ingredient));
+                    } else if(ingredient instanceof Yiest){
+                        selectedIngredients.add(new Yiest((Yiest)ingredient));
+                    } else if(ingredient instanceof OtherIngredient){
+                        selectedIngredients.add(new OtherIngredient((OtherIngredient)ingredient));
+                    }
                     updateIngredients();
                 }
             }
