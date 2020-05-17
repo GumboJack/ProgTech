@@ -8,14 +8,6 @@ public class Recipe {
     String beerName;
 
     private int liter;
-    private int[] maltQuantities;
-    private UnitType maltUnit;
-    private int[] hopQuantities;
-    private UnitType hopUnit;
-    private int[] yiestQuantities;
-    private UnitType yiestUnit;
-    private int[] otherQuantities;
-    private UnitType otherUnit;
     private ArrayList<Hop> hops;
     private ArrayList<Malt> malts;
     private ArrayList<Yiest> yiests;
@@ -26,25 +18,13 @@ public class Recipe {
     private boolean pasteurization;
     private boolean filtrarion;
 
-    public Recipe(String beerName, int liter, int[] maltQuantities, UnitType maltUnit, int[] hopQuantities, UnitType hopUnit,
-                  int[] yiestQuantities, UnitType yiestUnit, int[] otherQuantities, UnitType otherUnit, int mashingTimeInMinutes,
+    public Recipe(String beerName, int liter, int mashingTimeInMinutes,
                   int hopBoilingTimeInMinutes, int fermentationTimeInDays, boolean pasteurization, boolean filtrarion,
                   ArrayList<Hop> hops, ArrayList<Malt> malts, ArrayList<Yiest> yiests, ArrayList<OtherIngredient> otherIngredients)
-            throws InvalidRecipeException {
-        if(maltQuantities.length != malts.size() || hopQuantities.length != hops.size() ||
-                yiestQuantities.length != yiests.size() || otherQuantities.length != otherIngredients.size()){
-            throw new InvalidRecipeException();
-        }
+             {
+
         this.liter = liter;
         this.beerName = beerName;
-        this.maltQuantities = maltQuantities;
-        this.maltUnit = maltUnit;
-        this.hopQuantities = hopQuantities;
-        this.hopUnit = hopUnit;
-        this.yiestQuantities = yiestQuantities;
-        this.yiestUnit = yiestUnit;
-        this.otherQuantities = otherQuantities;
-        this.otherUnit = otherUnit;
         this.mashingTimeInMinutes = mashingTimeInMinutes;
         this.hopBoilingTimeInMinutes = hopBoilingTimeInMinutes;
         this.fermentationTimeInDays = fermentationTimeInDays;
@@ -70,70 +50,6 @@ public class Recipe {
 
     public void setLiter(int liter) {
         this.liter = liter;
-    }
-
-    public int[] getMaltQuantities() {
-        return maltQuantities;
-    }
-
-    public void setMaltQuantities(int[] maltQuantities) {
-        this.maltQuantities = maltQuantities;
-    }
-
-    public UnitType getMaltUnit() {
-        return maltUnit;
-    }
-
-    public void setMaltUnit(UnitType maltUnit) {
-        this.maltUnit = maltUnit;
-    }
-
-    public int[] getHopQuantities() {
-        return hopQuantities;
-    }
-
-    public void setHopQuantities(int[] hopQuantities) {
-        this.hopQuantities = hopQuantities;
-    }
-
-    public UnitType getHopUnit() {
-        return hopUnit;
-    }
-
-    public void setHopUnit(UnitType hopUnit) {
-        this.hopUnit = hopUnit;
-    }
-
-    public int[] getYiestQuantities() {
-        return yiestQuantities;
-    }
-
-    public void setYiestQuantities(int[] yiestQuantities) {
-        this.yiestQuantities = yiestQuantities;
-    }
-
-    public UnitType getYiestUnit() {
-        return yiestUnit;
-    }
-
-    public void setYiestUnit(UnitType yiestUnit) {
-        this.yiestUnit = yiestUnit;
-    }
-
-    public int[] getOtherQuantities() {
-        return otherQuantities;
-    }
-
-    public void setOtherQuantities(int[] otherQuantities) {
-        this.otherQuantities = otherQuantities;
-    }
-
-    public UnitType getOtherUnit() {
-        return otherUnit;
-    }
-
-    public void setOtherUnit(UnitType otherUnit) {
-        this.otherUnit = otherUnit;
     }
 
     public int getMashingTimeInMinutes() {
