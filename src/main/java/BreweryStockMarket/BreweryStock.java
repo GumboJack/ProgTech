@@ -60,7 +60,7 @@ public class BreweryStock extends Observable {
             ((Hop) ingredient).setAlphaAcid(alphaAcid);
             ingredient.setItemName(itemName);
             ingredient.setStockPrice(stockPrice);
-            ingredient.setQunantity(quantity);
+            ingredient.setPackVolume(quantity);
             ingredient.setMinIncrease(minIncrease);
             ingredient.setMaxIncrease(maxIncrease);
             ingredient.setMinDecrease(mindDecrease);
@@ -68,7 +68,7 @@ public class BreweryStock extends Observable {
         } else if(ingredient instanceof Malt || ingredient instanceof Yiest){
             ingredient.setItemName(itemName);
             ingredient.setStockPrice(stockPrice);
-            ingredient.setQunantity(quantity);
+            ingredient.setPackVolume(quantity);
             ingredient.setMinIncrease(minIncrease);
             ingredient.setMaxIncrease(maxIncrease);
             ingredient.setMinDecrease(mindDecrease);
@@ -76,7 +76,7 @@ public class BreweryStock extends Observable {
         } else if(ingredient instanceof OtherIngredient){
             ingredient.setItemName(itemName);
             ingredient.setStockPrice(stockPrice);
-            ingredient.setQunantity(quantity);
+            ingredient.setPackVolume(quantity);
             ingredient.setUnit(unit);
         }
         stock.add(ingredient);

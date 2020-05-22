@@ -72,7 +72,7 @@ public class ClientGUI extends JFrame{
                      selectedIngredients) {
                     if(ing.getItemName().equals(ingredient.getItemName())){
                         exist = true;
-                        ing.setQunantity(ing.getQunantity() + ingredient.getQunantity());
+                        ing.setQuantity(ing.getQuantity()+1);
                         updateIngredients();
                     }
                 }
@@ -102,7 +102,7 @@ public class ClientGUI extends JFrame{
         storeListModel.removeAllElements();
         for(int i = 0; i < filteredList.size(); i++){
             storeListModel.add(i, filteredList.get(i).getItemName() + "          " + filteredList.get(i).getStockPrice() + "/" +
-                    filteredList.get(i).getQunantity() + UnitHelper.unitConverter(filteredList.get(i).getUnit()));
+                    filteredList.get(i).getPackVolume() + UnitHelper.unitConverter(filteredList.get(i).getUnit()));
         }
     }
 
@@ -129,7 +129,7 @@ public class ClientGUI extends JFrame{
         ingredientListModel.removeAllElements();
         for (Ingredient ing:
              selectedIngredients) {
-            ingredientListModel.addElement(ing.getItemName() + " " + ing.getQunantity() + UnitHelper.unitConverter(ing.getUnit()));
+            ingredientListModel.addElement(ing.getItemName() + " " + ing.getPackVolume() * ing.getQuantity() + UnitHelper.unitConverter(ing.getUnit()));
         }
     }
 }

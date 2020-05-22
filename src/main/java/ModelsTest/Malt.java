@@ -1,6 +1,5 @@
 package ModelsTest;
 
-import java.text.ParseException;
 import java.util.Random;
 
 public class Malt extends Ingredient {
@@ -22,7 +21,7 @@ public class Malt extends Ingredient {
     public Malt(Malt malt){
         this.setItemName(malt.getItemName());
         this.setStockPrice(malt.getStockPrice());
-        this.setQunantity(malt.getQunantity());
+        this.setPackVolume(malt.getPackVolume());
         this.setUnit(malt.getUnit());
     }
 
@@ -33,12 +32,13 @@ public class Malt extends Ingredient {
     public Malt(String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setQunantity(quantity);
+        this.setPackVolume(quantity);
         this.setMinIncrease(minIncrease);
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
         this.setUnit(UnitType.KILOGRAM);
+        this.setQuantity(1);
     }
 
 }

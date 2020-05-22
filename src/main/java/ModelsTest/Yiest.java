@@ -20,7 +20,7 @@ public class Yiest extends Ingredient {
     public Yiest(Yiest yiest){
         this.setItemName(yiest.getItemName());
         this.setStockPrice(yiest.getStockPrice());
-        this.setQunantity(yiest.getQunantity());
+        this.setPackVolume(yiest.getPackVolume());
         this.setUnit(yiest.getUnit());
     }
 
@@ -31,12 +31,13 @@ public class Yiest extends Ingredient {
     public Yiest(String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setQunantity(quantity);
+        this.setPackVolume(quantity);
         this.setMinIncrease(minIncrease);
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
         this.setUnit(UnitType.GRAM);
+        this.setQuantity(1);
     }
 
 }

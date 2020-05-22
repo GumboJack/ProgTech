@@ -14,12 +14,11 @@ public class Wort extends BeerDecorator {
     @Override
     public double getCost(int liter) {
         double counter = 0;
-        int[] quantities = recipe.getHopQuantities();
         ArrayList<Hop> hops = recipe.getHops();
         for(int i = 0; i < hops.size(); i++){
-            counter += quantities[i] / hops.get(i).getQunantity() * hops.get(i).getStockPrice();
+            counter += hops.get(i).getQuantity() * hops.get(i).getPackVolume() * hops.get(i).getStockPrice();
         }
-        counter += recipe.getHopBoilingTimeInMinutes() * 80;
+        //counter += recipe.getHopBoilingTimeInMinutes() * 80;
         return tempBeerCost.getCost(liter) + counter * (recipe.getLiter() / liter);
     }
 }

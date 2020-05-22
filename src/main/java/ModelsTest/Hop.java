@@ -21,7 +21,7 @@ public class Hop extends Ingredient {
     public Hop(Hop hop){
         this.setItemName(hop.getItemName());
         this.setStockPrice(hop.getStockPrice());
-        this.setQunantity(hop.getQunantity());
+        this.setPackVolume(hop.getPackVolume());
         this.setUnit(hop.getUnit());
         this.setAlphaAcid(hop.getAlphaAcid());
     }
@@ -35,12 +35,13 @@ public class Hop extends Ingredient {
         this.alphaAcid = alphaAcid;
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setQunantity(quantity);
+        this.setPackVolume(quantity);
         this.setMinIncrease(minIncrease);
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
         this.setUnit(UnitType.GRAM);
+        this.setQuantity(1);
     }
 
     public double getAlphaAcid() {

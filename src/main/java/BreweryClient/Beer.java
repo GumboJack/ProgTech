@@ -14,12 +14,11 @@ public class Beer extends BeerDecorator {
     @Override
     public double getCost(int liter) {
         double counter = 0;
-        int[] quantities = recipe.getMaltQuantities();
         ArrayList<OtherIngredient> ingredients = recipe.getOtherIngredients();
         for (int i = 0; i < ingredients.size(); i++){
-            counter += quantities[i] / ingredients.get(i).getQunantity() * ingredients.get(i).getStockPrice();
+            counter += ingredients.get(i).getQuantity() * ingredients.get(i).getPackVolume() * ingredients.get(i).getStockPrice();
         }
-        return tempBeerCost.getCost(liter) + recipe.getFermentationTimeInDays() * 50 +
-                (recipe.isFiltrarion() ? 50*liter : 0 + (recipe.isPasteurization() ? 200*liter : 0));
+        return tempBeerCost.getCost(liter) + counter * (recipe.getLiter() / liter); //+ recipe.getFermentationTimeInDays() * 50 +
+//                (recipe.isFiltrarion() ? 50*liter : 0 + (recipe.isPasteurization() ? 200*liter : 0));
     }
 }

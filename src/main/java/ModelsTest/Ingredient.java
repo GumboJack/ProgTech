@@ -6,7 +6,8 @@ import java.math.RoundingMode;
 public abstract class Ingredient {
     private String itemName;
     private double stockPrice;
-    private int qunantity;
+    private int packVolume;
+    private int quantity;
     private double minIncrease;
     private double maxIncrease;
     private double minDecrease;
@@ -19,6 +20,14 @@ public abstract class Ingredient {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public abstract void randomizePrice();
@@ -39,12 +48,12 @@ public abstract class Ingredient {
         this.stockPrice = stockPrice;
     }
 
-    public int getQunantity() {
-        return qunantity;
+    public int getPackVolume() {
+        return packVolume;
     }
 
-    public void setQunantity(int qunantity) {
-        this.qunantity = qunantity;
+    public void setPackVolume(int packVolume) {
+        this.packVolume = packVolume;
     }
 
     public double getMinIncrease() {
