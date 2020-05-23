@@ -15,9 +15,9 @@ public class Mash extends BeerDecorator {
         double counter = 0;
         ArrayList<Malt> malts = recipe.getMalts();
         for(int i = 0; i < malts.size(); i++){
-            counter += malts.get(i).getQuantity() * malts.get(i).getPackVolume() * malts.get(i).getStockPrice();
+            counter += malts.get(i).getQuantity() * malts.get(i).getStockPrice();
         }
         //counter += recipe.getMashingTimeInMinutes() * 60;
-        return tempBeerCost.getCost(liter) + counter * (recipe.getLiter() / liter);
+        return tempBeerCost.getCost(liter) + counter * ((double)liter / (double)recipe.getLiter());
     }
 }

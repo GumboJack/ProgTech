@@ -28,10 +28,10 @@ public class Yiest extends Ingredient {
         this.setUnit(UnitType.GRAM);
     }
 
-    public Yiest(String itemName, double stockPrice, int quantity, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
+    public Yiest(String itemName, double stockPrice, int packVolume, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setPackVolume(quantity);
+        this.setPackVolume(packVolume);
         this.setMinIncrease(minIncrease);
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);

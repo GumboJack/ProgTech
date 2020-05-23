@@ -5,10 +5,10 @@ public class OtherIngredient extends Ingredient {
     public void randomizePrice() {
     }
 
-    public OtherIngredient(String itemName, double stockPrice, int quantity, UnitType unit){
+    public OtherIngredient(String itemName, double stockPrice, int packVolume, UnitType unit){
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setPackVolume(quantity);
+        this.setPackVolume(packVolume);
         this.setUnit(unit);
     }
 
