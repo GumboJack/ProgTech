@@ -17,7 +17,7 @@ public class BreweryStock extends Observable {
     private BreweryStock(){
         //Tesztadatok betöltése startupnál
         Hop hop = new Hop(0.10, "TestHop", 100, 100, 4.1, 2.1, 3.7, 2.4);
-        Malt malt = new Malt("TestMalt", 100, 100, 4.1, 2.1, 3.7, 2.4);
+        Malt malt = new Malt("TestMalt", 100, 1, 4.1, 2.1, 3.7, 2.4);
         Yiest yiest = new Yiest("TestYiest", 100, 100, 4.1, 2.1, 3.7,2.4);
         OtherIngredient other = new OtherIngredient("TestIngredient",300, 1, UnitType.KILOGRAM);
         addIngredient(hop);
