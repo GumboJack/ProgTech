@@ -1,7 +1,7 @@
 package Decorator;
 
 import BreweryClient.*;
-import ModelsTest.*;
+import Models.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

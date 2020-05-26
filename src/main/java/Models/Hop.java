@@ -1,10 +1,10 @@
-package ModelsTest;
+package Models;
 
 import java.util.Random;
 
-public class Malt extends Ingredient {
+public class Hop extends Ingredient {
+    private double alphaAcid;
 
-    @Override
     public void randomizePrice() {
         Random randomGenerator = new Random();
         if (randomGenerator.nextBoolean()){
@@ -14,22 +14,25 @@ public class Malt extends Ingredient {
         } else {
             double decrease;
             decrease = getMinDecrease() + (getMaxDecrease() - getMinDecrease()) * randomGenerator.nextDouble();
-            this.setStockPrice(Ingredient.round(this.getStockPrice()-decrease, 2));
+            this.setStockPrice(Ingredient.round(this.getStockPrice()-decrease,2));
         }
     }
 
-    public Malt(Malt malt){
-        this.setItemName(malt.getItemName());
-        this.setStockPrice(malt.getStockPrice());
-        this.setPackVolume(malt.getPackVolume());
-        this.setUnit(malt.getUnit());
+    public Hop(Hop hop){
+        this.setItemName(hop.getItemName());
+        this.setStockPrice(hop.getStockPrice());
+        this.setPackVolume(hop.getPackVolume());
+        this.setUnit(hop.getUnit());
+        this.setAlphaAcid(hop.getAlphaAcid());
     }
 
-    public Malt(){
-        this.setUnit(UnitType.KILOGRAM);
+    public Hop(){
+        this.setUnit(UnitType.GRAM);
     }
 
-    public Malt(String itemName, double stockPrice, int packVolume, double minIncrease, double maxIncrease, double mindDecrease, double maxDecrease){
+    public Hop(double alphaAcid, String itemName, double stockPrice, int packVolume, double minIncrease,
+               double maxIncrease, double mindDecrease, double maxDecrease) {
+        this.alphaAcid = alphaAcid;
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
         this.setPackVolume(packVolume);
@@ -37,8 +40,16 @@ public class Malt extends Ingredient {
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);
         this.setMaxDecrease(maxDecrease);
-        this.setUnit(UnitType.KILOGRAM);
+        this.setUnit(UnitType.GRAM);
         this.setQuantity(1);
+    }
+
+    public double getAlphaAcid() {
+        return alphaAcid;
+    }
+
+    public void setAlphaAcid(double alphaAcid) {
+        this.alphaAcid = alphaAcid;
     }
 
 }

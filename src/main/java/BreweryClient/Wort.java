@@ -1,6 +1,6 @@
 package BreweryClient;
 
-import ModelsTest.Hop;
+import Models.Hop;
 
 import java.util.ArrayList;
 

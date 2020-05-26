@@ -1,6 +1,6 @@
 package BreweryStockMarket;
 
-import ModelsTest.*;
+import Models.*;
 
 import java.util.ArrayList;
 import java.util.Observable;

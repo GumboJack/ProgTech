@@ -1,4 +1,4 @@
-package ModelsTest;
+package Models;
 
 public enum UnitType {
     GRAM,

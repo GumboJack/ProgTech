@@ -1,7 +1,7 @@
 package BreweryStockMarket;
 
-import ModelsTest.UnitHelper;
-import ModelsTest.UnitType;
+import Models.UnitHelper;
+import Models.UnitType;
 
 import javax.swing.*;
 import java.awt.event.*;
