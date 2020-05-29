@@ -154,6 +154,8 @@ public class ClientGUI extends JFrame{
                     JOptionPane.showMessageDialog(mainPanel, "Invalid input formats");
                     System.out.println(ex.getMessage());
                     ex.printStackTrace();
+                } catch (MissingIngredientsException ex) {
+                    ex.printStackTrace();
                 }
             }
         });

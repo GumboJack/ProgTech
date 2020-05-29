@@ -20,9 +20,7 @@ public class Recipe {
 
     public Recipe(String beerName, int liter, int mashingTimeInMinutes,
                   int hopBoilingTimeInMinutes, int fermentationTimeInDays, boolean pasteurization, boolean filtrarion,
-                  ArrayList<Hop> hops, ArrayList<Malt> malts, ArrayList<Yiest> yiests, ArrayList<OtherIngredient> otherIngredients)
-             {
-
+                  ArrayList<Hop> hops, ArrayList<Malt> malts, ArrayList<Yiest> yiests, ArrayList<OtherIngredient> otherIngredients) throws MissingIngredientsException {
         this.liter = liter;
         this.beerName = beerName;
         this.mashingTimeInMinutes = mashingTimeInMinutes;
@@ -30,9 +28,13 @@ public class Recipe {
         this.fermentationTimeInDays = fermentationTimeInDays;
         this.pasteurization = pasteurization;
         this.filtrarion = filtrarion;
-        this.hops = hops;
-        this.malts = malts;
-        this.yiests = yiests;
+        if(!hops.isEmpty() && !malts.isEmpty() && !yiests.isEmpty()){
+            this.hops = hops;
+            this.malts = malts;
+            this.yiests = yiests;
+        } else {
+            throw new MissingIngredientsException();
+        }
         this.otherIngredients = otherIngredients;
     }
 

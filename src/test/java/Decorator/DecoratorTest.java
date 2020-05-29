@@ -3,16 +3,17 @@ package Decorator;
 import BreweryClient.*;
 import Models.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DecoratorTest {
     @Test
-    void TestBeerDecorator(){
+    void TestBeerDecorator() throws MissingIngredientsException {
         Recipe recipe = new Recipe(
                 "Premium Berry Pils",
-                23,
+                20,
                 70,
                 40,
                 45,
@@ -32,9 +33,30 @@ public class DecoratorTest {
                     new OtherIngredient("Berries", 500, 2, UnitType.KILOGRAM)
                 ))        );
         recipe.getHops().get(1).setQuantity(2);
+        recipe.getMalts().get(0).setQuantity(3);
         BeerCost beer = new Beer(new Wort(new Mash(new Water(), recipe), recipe), recipe);
+        double fullprice = recipe.getLiter()*100;
+
+        for (Malt malt:
+             recipe.getMalts()) {
+            fullprice += malt.getStockPrice() * malt.getQuantity();
+        }
+        for (Hop hop:
+                recipe.getHops()) {
+            fullprice += hop.getStockPrice() * hop.getQuantity();
+        }
+        for (Yiest yiest:
+                recipe.getYiests()) {
+            fullprice += yiest.getStockPrice() * yiest.getQuantity();
+        }
+        for (OtherIngredient other:
+                recipe.getOtherIngredients()) {
+            fullprice += other.getStockPrice() * other.getQuantity();
+        }
+
+        assertEquals(fullprice, beer.getCost(recipe.getLiter()), 2);
         System.out.println(recipe.getBeerName());
-        int liter = 500;
-        System.out.println(Ingredient.round(beer.getCost(liter), 2) + "Ft / " + liter + "L");
+        System.out.println("Expected: " + fullprice);
+        System.out.println("Actual: " + beer.getCost(recipe.getLiter()));
     }
 }
