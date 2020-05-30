@@ -17,19 +17,19 @@ public class ObserverTester {
         BreweryStockObserver obs1 = new BreweryStockObserver(new ClientGUI());
         BreweryStockObserver obs2 = new BreweryStockObserver(new ClientGUI());
         BreweryStockObserver obs3 = new BreweryStockObserver(new ClientGUI());
-        BreweryStock stock = BreweryStock.getInstance();
-        stock.addObserver(obs1);
-        stock.addObserver(obs2);
-        stock.addObserver(obs3);
-        assertEquals(3, stock.countObservers());
+        BreweryStock observable = BreweryStock.getInstance();
+        observable.addObserver(obs1);
+        observable.addObserver(obs2);
+        observable.addObserver(obs3);
+        assertEquals(3, observable.countObservers());
     }
 
     @Test
     void testIfObserversupdated(){
         MockObserver observer = new MockObserver();
-        BreweryStock stock = BreweryStock.getInstance();
-        stock.addObserver(observer);
-        stock.updatePrices();
+        BreweryStock observable = BreweryStock.getInstance();
+        observable.addObserver(observer);
+        observable.updatePrices();
 
         assertTrue(observer.updated);
     }
