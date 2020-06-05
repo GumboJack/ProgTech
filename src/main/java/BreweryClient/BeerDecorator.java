@@ -1,6 +1,5 @@
 package BreweryClient;
 
-//beer decorator
 public abstract class BeerDecorator implements BeerCost {
     protected BeerCost tempBeerCost;
     protected Recipe recipe;

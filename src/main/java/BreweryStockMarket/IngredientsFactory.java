@@ -1,6 +1,6 @@
 package BreweryStockMarket;
 
-import ModelsTest.*;
+import Models.*;
 
 public class IngredientsFactory {
     private static IngredientsFactory instance = null;

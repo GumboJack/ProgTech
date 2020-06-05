@@ -1,6 +1,6 @@
 package BreweryClient;
 
-import ModelsTest.Hop;
+import Models.Hop;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ public class Wort extends BeerDecorator {
         double counter = 0;
         ArrayList<Hop> hops = recipe.getHops();
         for(int i = 0; i < hops.size(); i++){
-            counter += hops.get(i).getQuantity() * hops.get(i).getPackVolume() * hops.get(i).getStockPrice();
+            counter += hops.get(i).getQuantity() * hops.get(i).getStockPrice();
         }
         //counter += recipe.getHopBoilingTimeInMinutes() * 80;
-        return tempBeerCost.getCost(liter) + counter * (recipe.getLiter() / liter);
+        return tempBeerCost.getCost(liter) + counter * ((double)liter / (double)recipe.getLiter());
     }
 }

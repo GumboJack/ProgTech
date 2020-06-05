@@ -1,6 +1,6 @@
 package BreweryClient;
 
-import ModelsTest.*;
+import Models.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,7 @@ public class ClientGUI extends JFrame{
     private JScrollPane storePane;
     private JScrollPane ingredientsPane;
     private JList ingredientsList;
+    private JTextField forLiterInput;
     private BreweryStockObserver observer = new BreweryStockObserver(this);
     private DefaultListModel storeListModel;
     private DefaultListModel ingredientListModel;
@@ -62,31 +63,99 @@ public class ClientGUI extends JFrame{
             }
         });
 
+        deleteIngredientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    if(!ingredientsList.isSelectionEmpty()){
+                        selectedIngredients.remove(ingredientsList.getSelectedIndex());
+                        updateIngredients();
+                    }
+                } catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         selectedIngredients = new ArrayList<Ingredient>();
         addIngredientButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ingredient ingredient = filteredList.get(storeList.getSelectedIndex());
-                boolean exist = false;
-                for (Ingredient ing:
-                     selectedIngredients) {
-                    if(ing.getItemName().equals(ingredient.getItemName())){
-                        exist = true;
-                        ing.setQuantity(ing.getQuantity()+1);
-                        updateIngredients();
+                try{
+                    if(!storeList.isSelectionEmpty()){
+                        Ingredient ingredient = filteredList.get(storeList.getSelectedIndex());
+                        boolean exist = false;
+                        for (Ingredient ing:
+                                selectedIngredients) {
+                            if(ing.getItemName().equals(ingredient.getItemName())){
+                                exist = true;
+                                ing.setQuantity(ing.getQuantity()+1);
+                                updateIngredients();
+                            }
+                        }
+                        if(!exist){
+                            if(ingredient instanceof Hop){
+                                selectedIngredients.add(new Hop((Hop)ingredient));
+                            } else if(ingredient instanceof Malt){
+                                selectedIngredients.add(new Malt((Malt)ingredient));
+                            } else if(ingredient instanceof Yiest){
+                                selectedIngredients.add(new Yiest((Yiest)ingredient));
+                            } else if(ingredient instanceof OtherIngredient){
+                                selectedIngredients.add(new OtherIngredient((OtherIngredient)ingredient));
+                            }
+                            updateIngredients();
+                        }
                     }
+                } catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
                 }
-                if(!exist){
-                    if(ingredient instanceof Hop){
-                        selectedIngredients.add(new Hop((Hop)ingredient));
-                    } else if(ingredient instanceof Malt){
-                        selectedIngredients.add(new Malt((Malt)ingredient));
-                    } else if(ingredient instanceof Yiest){
-                        selectedIngredients.add(new Yiest((Yiest)ingredient));
-                    } else if(ingredient instanceof OtherIngredient){
-                        selectedIngredients.add(new OtherIngredient((OtherIngredient)ingredient));
+
+            }
+        });
+
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    int liter = Integer.parseInt(literInput.getText());
+                    int forLiter = Integer.parseInt(forLiterInput.getText());
+                    ArrayList<Hop> hops = new ArrayList<Hop>();
+                    ArrayList<Malt> malts = new ArrayList<Malt>();
+                    ArrayList<Yiest> yiests = new ArrayList<Yiest>();
+                    ArrayList<OtherIngredient> others = new ArrayList<OtherIngredient>();
+
+                    refreshPrices();
+                    for (Ingredient ingredient:
+                         selectedIngredients) {
+                        if (ingredient instanceof Hop){
+                            hops.add((Hop)ingredient);
+                        } else if (ingredient instanceof Malt){
+                            malts.add((Malt) ingredient);
+                        }else if (ingredient instanceof Yiest){
+                            yiests.add((Yiest)ingredient);
+                        } else  if (ingredient instanceof OtherIngredient){
+                            others.add((OtherIngredient) ingredient);
+                        }
                     }
-                    updateIngredients();
+
+                    Recipe recipe = new Recipe(
+                            "",
+                            forLiter,
+                            0, 0, 0, false, false,
+                            hops, malts, yiests, others
+                    );
+
+                    BeerCost beer = new Beer(new Wort(new Mash(new Water(), recipe), recipe), recipe);
+
+                    priceLabel.setText(beer.getCost(liter) + "Ft / " + liter + "L");
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid input formats");
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                } catch (MissingIngredientsException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
@@ -130,6 +199,18 @@ public class ClientGUI extends JFrame{
         for (Ingredient ing:
              selectedIngredients) {
             ingredientListModel.addElement(ing.getItemName() + " " + ing.getPackVolume() * ing.getQuantity() + UnitHelper.unitConverter(ing.getUnit()));
+        }
+    }
+
+    private void refreshPrices(){
+        for (Ingredient selectedingredient:
+             selectedIngredients) {
+            for (Ingredient stockingredient:
+                 observer.getObservedStock()) {
+                if(selectedingredient.getItemName().equals(stockingredient.getItemName())){
+                    selectedingredient.setStockPrice(stockingredient.getStockPrice());
+                }
+            }
         }
     }
 }

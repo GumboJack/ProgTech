@@ -1,4 +1,4 @@
-package ModelsTest;
+package Models;
 
 import java.util.Random;
 
@@ -30,12 +30,12 @@ public class Hop extends Ingredient {
         this.setUnit(UnitType.GRAM);
     }
 
-    public Hop(double alphaAcid, String itemName, double stockPrice, int quantity, double minIncrease,
+    public Hop(double alphaAcid, String itemName, double stockPrice, int packVolume, double minIncrease,
                double maxIncrease, double mindDecrease, double maxDecrease) {
         this.alphaAcid = alphaAcid;
         this.setItemName(itemName);
         this.setStockPrice(stockPrice);
-        this.setPackVolume(quantity);
+        this.setPackVolume(packVolume);
         this.setMinIncrease(minIncrease);
         this.setMaxIncrease(maxIncrease);
         this.setMinDecrease(mindDecrease);

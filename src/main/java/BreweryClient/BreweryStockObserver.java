@@ -1,7 +1,7 @@
 package BreweryClient;
 
 import BreweryStockMarket.BreweryStock;
-import ModelsTest.Ingredient;
+import Models.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Observable;
